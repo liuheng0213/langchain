@@ -7,6 +7,7 @@ import requests
 load_dotenv("../dev/.env")
 
 
+
 def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
     """
     :param linkedin_profile_url:
