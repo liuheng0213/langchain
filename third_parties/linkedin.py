@@ -35,7 +35,7 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
     # data = response.json()
 
     # f = open('../json/linkedinProfile.json')
-    f = open('F:\工作常用工具\pycharmProjects\ice_breaker\json\linkedinProfile.json')
+    f = open('/Users/henry/PycharmProjects/langchain-demo/json/linkedinProfile.json')
     # returns JSON object as
     # a dictionary
     data = json.load(f)

@@ -27,7 +27,8 @@ A member of the wealthy South African Musk family, Elon was born in Pretoria and
 
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-    chain = LLMChain(llm=llm, prompt=summary_prompt_template)
-    linkedin_data = scrape_linkedin_profile(linkedin_profile_url='https://www.linkedin.com/in/hengliu1984/', mock=True)
-    res = chain.invoke(input={"information": linkedin_data})
+    # chain = LLMChain(llm=llm, prompt=summary_prompt_template) deprecated
+    chain = summary_prompt_template | llm
+    # linkedin_data = scrape_linkedin_profile(linkedin_profile_url='https://www.linkedin.com/in/hengliu1984/', mock=True)
+    res = chain.invoke(input={"information": information})
     print(res)
