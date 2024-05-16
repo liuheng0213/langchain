@@ -35,11 +35,13 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
 
     # data = response.json()
 
-    # f = open('../json/linkedinProfile.json')
-    f = open('F:\工作常用工具\pycharmProjects\ice_breaker\json\linkedinProfile.json')
+    # f= open('../json/linkedinProfile.json')
     # returns JSON object as
     # a dictionary
-    data = json.load(f)
+    # data = json.load(f)
+
+    data = response.json()
+    print(type(data))
     data = {
         k: v
         for k, v in data.items()
@@ -49,7 +51,8 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
     if data.get("groups"):
         for group_dict in data.get("groups"):
             group_dict.pop("profile_pic_url")
-
+    tmp = str(data)
+    print(type(tmp))
     return data
 
 

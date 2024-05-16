@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-load_dotenv()
 from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain_core.tools import Tool
@@ -10,8 +9,10 @@ from langchain.agents import (
 )
 
 
+load_dotenv("../dev/.env")
 
 def lookup(name: str) -> str:
+    print(os.environ['OPENAI_API_KEY'])
     llm = ChatOpenAI(
         temperature=0,
         model_name="gpt-3.5-turbo",
@@ -44,3 +45,7 @@ def lookup(name: str) -> str:
 
     linked_profile_url = result["output"]
     return linked_profile_url
+
+
+if __name__ == "__main__":
+    print(lookup(name="Eden Marco Udemy"))

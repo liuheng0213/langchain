@@ -5,11 +5,13 @@ from langchain.prompts.prompt import PromptTemplate
 from langchain_openai import ChatOpenAI
 
 from third_parties.linkedin import scrape_linkedin_profile
+from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from dotenv import load_dotenv
 
-load_dotenv("dev/.env")
-if __name__ == "__main__":
 
+def ice_break_with(name: str)->str:
+    linkedin_username = linkedin_lookup_agent(name=name)
+    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_username,mock=True)
     print("Hello Langchain")
     print(os.environ['OPENAI_API_KEY'])
     print(os.environ['COOL_API_KEY'])
@@ -28,6 +30,11 @@ A member of the wealthy South African Musk family, Elon was born in Pretoria and
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
-    linkedin_data = scrape_linkedin_profile(linkedin_profile_url='https://www.linkedin.com/in/hengliu1984/', mock=True)
+
     res = chain.invoke(input={"information": linkedin_data})
     print(res)
+
+if __name__ == "__main__":
+    load_dotenv("dev/.env")
+    print("ice breaker Enter")
+    ice_break_with(name="Eden Marco") #it might get different result, but you can get precisse result by inputting more details
