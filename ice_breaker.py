@@ -1,18 +1,18 @@
 import os
-
+from typing import Tuple
 from langchain.chains import LLMChain
 from langchain.prompts.prompt import PromptTemplate
 from langchain_openai import ChatOpenAI
 
+from output_parser import summary_parser,Summary
 from third_parties.linkedin import scrape_linkedin_profile
 from third_parties.twitter import scrape_user_tweets
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from agents.twitter_lookup_agent import lookup as twitter_lookup_agent
 from dotenv import load_dotenv
-from output_parser import summary_parser
 
 
-def ice_break_with(name: str)->str:
+def ice_break_with(name: str)->Tuple[Summary, str]:
     # print("Hello Langchain")
     # print(os.environ['OPENAI_API_KEY'])
     print(os.environ['TWITTER_API_KEY'])
@@ -53,8 +53,9 @@ def ice_break_with(name: str)->str:
     # chain = LLMChain(llm=llm, prompt=summary_prompt_template)
     chain = summary_prompt_template | llm | summary_parser
 
+    #res:Summary  means Summary is the part of res
     res = chain.invoke(input={"information": linkedin_data,"twitter_posts": tweets})
-    print(res)
+    return res, linkedin_data.get("profile_pic_url")
 
     """
     1. Short Summary:
